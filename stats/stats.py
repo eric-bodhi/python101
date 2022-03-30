@@ -12,6 +12,7 @@ def mode(vector):
     return max(vector, key=vector.get)
 
 
+
 def median(vector):
     len2 = len(vector)//2
     return vector[len2] if len(vector) % 2 == 1 else mean([vector[len2-1], vector[len2]])
