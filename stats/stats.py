@@ -46,10 +46,24 @@ def IQR(vector):
 if mad([1, 1, 1, 2, 2, 3, 3, 5, 7, 9]) == 2.16:
     print("The MAD of this data is: " + str(mad(vector)))
 
-if IQR([1, 3, 1,6, 9])
-print("The IQR of this data is: " + str(IQR(vector)))
-print("This data sorted is " + str(sorted(vector)))
-print("The mean of this data is " + str(mean(vector)))
-print("The mode of this data is " + str(mode(vector)))
-print("The median of this data is " + str(median(vector)))
-print("The range of this data is " + str(range(vector)))
+if IQR([1, 3, 1,6, 9]) == 6.5:
+    print("The IQR of this data is: " + str(IQR(vector)))
+
+if sorted([0, 5, 10]) == [0, 5, 10]:
+    print("This data sorted is " + str(sorted(vector)))
+
+if mean([0, 5, 10, 20, 25]) == 12:
+    print("The mean of this data is " + str(mean(vector)))
+
+if mode([1, 1, 1, 2]) == 1:
+    print("The mode of this data is " + str(mode(vector)))
+
+if median([1, 2, 3]) == 2:
+    print("The median of this data is " + str(median(vector)))
+
+if range([6, 7, 8, 9, 10]) == 4:
+    print("The range of this data is " + str(range(vector)))
+
+
+
+
