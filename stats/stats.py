@@ -1,6 +1,7 @@
 import collections
+import statistics
 
-vector = [10, 15, 20, 30, 50]
+vector = [34000, 45000, 40000, 33000, 51000, 100000, 65000, 431000, 19000, 86000]
 
 
 def mean(vector):
@@ -14,8 +15,9 @@ def mode(vector):
 
 
 def median(vector):
-    len2 = len(vector)//2
-    return vector[len2] if len(vector) % 2 == 1 else mean([vector[len2-1], vector[len2]])
+    return statistics.median(vector)
+    #len2 = len(vector)//2
+    #return vector[len2] if len(vector) % 2 == 1 else mean([vector[len2-1], vector[len2]])
     #vector = sorted(vector)
     #if len(vector) % 2 >= 1:
     #    return vector[math.ceil(len(vector) / 2) - 1]
@@ -40,14 +42,15 @@ def mad(vector):
 def IQR(vector):
     len2 = len(vector) // 2
     vector = sorted(vector)
-    return median(vector[-len2:]) - median(vector[0:len2])
+    q3 = median(vector[-len2:])
+    q1 = median(vector[0:len2])
+    return q1, q3, q3-q1
 
 
 if mad([1, 1, 1, 2, 2, 3, 3, 5, 7, 9]) == 2.16:
     print("The MAD of this data is: " + str(mad(vector)))
 
-if IQR([1, 3, 1,6, 9]) == 6.5:
-    print("The IQR of this data is: " + str(IQR(vector)))
+print("The IQR of this data is: " + str(IQR(vector)))
 
 if sorted([0, 5, 10]) == [0, 5, 10]:
     print("This data sorted is " + str(sorted(vector)))
@@ -64,8 +67,5 @@ if median([1, 2, 3]) == 2:
 if range([6, 7, 8, 9, 10]) == 4:
     print("The range of this data is " + str(range(vector)))
 
-
-
-print("hi")
 
 
