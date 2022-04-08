@@ -10,14 +10,14 @@ def mean(vector):
 
 def mode(vector):
     vector = collections.Counter(vector)
-    return max(vector, key=vector.get)
+    return max(vector, key=vector.get) 
 
 
 
 def median(vector):
-    return statistics.median(vector)
-    #len2 = len(vector)//2
-    #return vector[len2] if len(vector) % 2 == 1 else mean([vector[len2-1], vector[len2]])
+    vector = sorted(vector)
+    len2 = len(vector)//2
+    return vector[len2] if len(vector) % 2 == 1 else mean([vector[len2-1], vector[len2]])
     #vector = sorted(vector)
     #if len(vector) % 2 >= 1:
     #    return vector[math.ceil(len(vector) / 2) - 1]
@@ -67,5 +67,5 @@ if median([1, 2, 3]) == 2:
 if range([6, 7, 8, 9, 10]) == 4:
     print("The range of this data is " + str(range(vector)))
 
-
+print("test")
 
