@@ -67,5 +67,3 @@ if median([1, 2, 3]) == 2:
 if range([6, 7, 8, 9, 10]) == 4:
     print("The range of this data is " + str(range(vector)))
 
-print("test")
-
