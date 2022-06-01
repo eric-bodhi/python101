@@ -41,3 +41,4 @@ class Solution:
             if self.isGood(s[i:i+3]):
                 count += 1
         return count
+print(123)
