@@ -21,14 +21,14 @@ Constraints:
 from math import comb
 class Solution:
     #implement nCr for pascal triangle (math.comb)
-    def rowData(self, n, r):
+    def rowData(self, n):
         ret = []
         for i in range(n+1):
             r = i
-            ret.append(math.comb(n, r))
+            ret.append(math.comb(n, i))
         return ret
     def generate(self, numRows: int) -> List[List[int]]:
         ret = []
         for i in range(numRows):
-            ret.append(self.rowData(i, 0))
+            ret.append(self.rowData(i))
         return ret
