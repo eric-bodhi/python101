@@ -35,9 +35,10 @@ It is very easy to come up with a solution with a runtime of O(n log n). Can you
 Can you do it without using any built-in function (i.e., like __builtin_popcount in C++)?
 """
 
-class Solution:
-    def countBits(self, n: int) -> List[int]:
-        res = [0]
-        while len(res) <= n:
-            res += [i+1 for i in res]
-        return res[:n+1]
+def count1(self, s):
+        return s.count("1")
+def countBits(self, n: int) -> List[int]:
+    ret = []
+    for i in range(n+1):
+        ret.append(self.count1(bin(i)[2:]))
+    return ret
