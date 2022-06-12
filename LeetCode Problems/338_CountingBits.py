@@ -37,7 +37,7 @@ Can you do it without using any built-in function (i.e., like __builtin_popcount
 
 def count1(self, s):
         return s.count("1")
-def countBits(self, n: int) -> List[int]:
+def countBits(self, n: int):
     ret = []
     for i in range(n+1):
         ret.append(self.count1(bin(i)[2:]))
