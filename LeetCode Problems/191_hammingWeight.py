@@ -1,4 +1,5 @@
-#hammingWeight of int n. (Amount of 1 bits in binary representatino of n).
+#!/usr/bin/env python3
+import sys
 
 """Leetcode Prompt:
 Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
@@ -63,4 +64,4 @@ def isWorking():
         print("Second solution is not working, " + str(y.count(True)) + "/5 Test cases passed.")
 
 
-isWorking()
+print(sys.argv)
