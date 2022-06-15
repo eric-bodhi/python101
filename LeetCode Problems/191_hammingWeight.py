@@ -51,21 +51,24 @@ def hammingWeight2(n: int) -> int:
 
 
 def isWorking():
+    count = 3
     result = True
     if hammingWeight2(5) != 2:
         result = False
         print("Battery Testcase: 5 -> " + str(hammingWeight2(5)) + ": Failed, expected 2")
-    
+        count -= 1
+
     if hammingWeight2(15) != 4:
         result = False
         print("Battery Testcase: 15 -> " + str(hammingWeight2(15)) + ": Failed, expected 4")
-    
+        count -= 1
+
     if hammingWeight2(321222212) != 13:
         result = False
         print("Battery Testcase: 321222212 -> " + str(hammingWeight2(321222212)) + ": Failed, expected 13")
-    
-    if result:
-        print("All battery tests passed.")
+        count -= 1
+
+    print(str(count) + "/3 Battery tests passed.")
     return result
 
 def endResult():
@@ -78,4 +81,4 @@ if isWorking():
 print(str(round(timeit.timeit(stmt="lambda: endResult()", number=1000000)*1000)) + " Milliseconds after 1,000,000 executions")
 
 process = psutil.Process(os.getpid())
-print(str(process.memory_info().rss) + " bytes of memory used")  # in bytes 
+print(str(process.memory_info().rss/1000000) + " megabytes of memory used")  # in megabytes 
