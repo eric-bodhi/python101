@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+import timeit
 import sys
+import os
+import psutil
 
 """Leetcode Prompt:
 Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
@@ -34,7 +37,6 @@ The input must be a binary string of length 32.
 
 Follow up: If this function is called many times, how would you optimize it?
 """
-
 #First Solution, diagnostics: ~80% speed.
 def hammingWeight1(n: int) -> int:
     return bin(n)[2:].count("1")
@@ -47,21 +49,33 @@ def hammingWeight2(n: int) -> int:
             count += 1
     return count
 
+
 def isWorking():
-    x = [hammingWeight1(0)==0, hammingWeight1(1)==1, hammingWeight1(2)==1, hammingWeight1(3)==2, hammingWeight1(500)==6]
-    y = [hammingWeight2(0)==0, hammingWeight2(1)==1, hammingWeight2(2)==1, hammingWeight2(3)==2, hammingWeight2(500)==6]
+    result = True
+    if hammingWeight2(5) != 2:
+        result = False
+        print("Battery Testcase: 5 -> " + str(hammingWeight2(5)) + ": Failed, expected 2")
+    
+    if hammingWeight2(15) != 4:
+        result = False
+        print("Battery Testcase: 15 -> " + str(hammingWeight2(15)) + ": Failed, expected 4")
+    
+    if hammingWeight2(321222212) != 13:
+        result = False
+        print("Battery Testcase: 321222212 -> " + str(hammingWeight2(321222212)) + ": Failed, expected 13")
+    
+    if result:
+        print("All battery tests passed.")
+    return result
 
-    if all(x):
-        print("First solution is working, all test cases passed")
+def endResult():
+    for i in sys.argv[1:]:
+        print(i + " -> " + str(hammingWeight2(int(i))))
 
-    else:
-        print("First solution is not working, " + str(x.count(True)) + "/5 Test cases passed.")
+if isWorking():
+    endResult()
 
-    if all(y):
-        print("Second solution is working, all test cases passed")
+print(str(round(timeit.timeit(stmt="lambda: endResult()", number=1000000)*1000)) + " Milliseconds after 1,000,000 executions")
 
-    else:
-        print("Second solution is not working, " + str(y.count(True)) + "/5 Test cases passed.")
-
-
-print(sys.argv)
+process = psutil.Process(os.getpid())
+print(str(process.memory_info().rss) + " bytes of memory used")  # in bytes 
