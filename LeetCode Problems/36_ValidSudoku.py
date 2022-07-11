@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-
-from multiprocessing import cpu_count
 import sys
 
 class Solution:
