@@ -3,7 +3,7 @@ import sys
 
 class Solution:
     def validUnit(self, unit):
-        unit = "".join([i for i in unit if i != "."])
+        unit = [i for i in unit if i != "."]
         return len(set(unit)) == len(unit)
     
     def validRows(self, board):
