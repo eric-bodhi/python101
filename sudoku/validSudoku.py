@@ -1,5 +1,5 @@
 def validUnit(unit):
-    unit = [i for i in unit if i != "."]
+    unit = [i for i in unit if i != 0 and i != "."]
     return len(set(unit)) == len(unit)
     
 def validRows(board):

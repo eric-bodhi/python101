@@ -17,13 +17,13 @@ def generate():
     nums  = shuffle(range(1,base*base+1))
 
     # produce board using randomized baseline pattern
-    board = [[str(nums[pattern(r,c)]) for c in cols] for r in rows ]
+    board = [[nums[pattern(r,c)] for c in cols] for r in rows ]
 
     return board
 
 def degenerate(board):
     for i in range(9):
         for j in range(9):
-            board[i][j] = "."
+            board[i][j] = 0
     return board
 
