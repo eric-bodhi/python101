@@ -7,13 +7,10 @@ import time
 solved_board = generator.generate()
 
 difficulty = input("Choose a difficulty (Easy, Medium, Hard, Impossible \n").lower()
-while difficulty != "easy" and difficulty and difficulty != "medium" and difficulty != "hard" and difficulty != "impossible" and len(difficulty) == 0:
+while difficulty != "easy" and difficulty != "medium" and difficulty != "hard" and difficulty != "impossible":
     difficulty = input("Error! Choose a difficulty. (Easy, Medium, Hard, Impossible \n").lower()
 
-mistakes_status = input("Do you want mistakes on. Y/N (You can only make 3 mistakes before you lose) \n").lower()
-if mistakes_status == "y" or "yes":
-    mistakes = 3
-
+input("Ok are you ready to start? Make sure to read the readme instructions on github! Press any key to begin \n")
 if difficulty == "easy":
     difficulty = 30
 
@@ -55,11 +52,8 @@ def printBoard(board):
         print([line2,line3,line4][(r%side==0)+(r%base==0)])
 
 def add(row, col, num):
-    print(validSudoku.isValidSudoku(board))
     prev = board[row-1][col-1]
     if prev == 0:
-        print("You've successfully added {} at row {}, col {}!").format(num, row, col)
-        print("------------------------------------------")
         board[row-1][col-1] = int(num)
     else:
         print("Oops! There's already a number there!")
@@ -70,10 +64,9 @@ def add(row, col, num):
     if validSudoku.isValidSudoku(board):
         return True
     else:
-        mistakes -= 1
         print("The number you added made the sudoku invalid, *reversing what you've done*")
         time.sleep(1)
-        print("Done! You only have {} left!".format(mistakes))
+        print("Reversed!")
         print("------------------------------------------")
         board[row-1][col-1] = prev
         return False
@@ -82,14 +75,11 @@ def remove(row, col):
     prev = board[row-1][col-1]
     if solved_board[row-1][col-1] == prev:
         print("Oops! That was the correct placement, dont remove it!")
-        time.sleep(1)
-        print("You only have {} left!".format(mistakes))
         print("------------------------------------------")
 
     else:
         board[row-1][col-1] = 0
-        print("You've successfully removed {} at row {}, col {}.".format(prev, row, col))
-        print("------------------------------------------")
+
     if validSudoku.isValidSudoku(board):
         return True
     else:
@@ -97,7 +87,7 @@ def remove(row, col):
         print("The number you removed made the sudoku invalid, *reversing what you've done*")
         time.sleep(1)
         print("Done!")
-        print("You only have {} left!".format(mistakes))
+        print("You only have {} left!".format())
         print("------------------------------------------")
         return False
 
@@ -112,10 +102,33 @@ def isSolved(board):
 
 def game():
     printBoard(board)
-    while not isSolved(board) or (mistakes_status and mistakes == 0):
-        if mistakes_status == "y":
-            print("You currently have {} mistakes left.".format(mistakes))
+    while not isSolved(board):
+        response = input("What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit. \n").lower().split()
 
+        while response == []:
+            response = input(input("Invalid input. What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit \n").lower().split())
+
+        while response[0] != "add" and response[0] != "remove" and not response[1].isnumeric() and int(response[1]) > 0 and int(response[1]) < 10 and int(response[3][0]) > 0 and int(response[3][0]) < 10 and int(response[3][2]) > 0 and int(response[3][2]) < 10:
+            response = input("Invalid input. What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit \n").lower().lower().split()
+
+        if response[0] == "quit":
+            print("You lose!")
+            return
+
+        action = response[0]
+        num = response[1]
+        cords = response[3]
+
+        if action == "add":
+            if add(int(cords[0]), int(cords[2]), int(num)):
+                print("Added {num} at row {row}, col {col} succesfully!".format(num=num, row=cords[0], col=cords[2]))
+
+        else:
+            if remove(int(cords[0]), int(cords[2])):
+                print("Removed {num} at row {row}, col {col} succesfully!".format(num=num, row=cords[0], col=cords[2]))
+
+
+        """
         response = input("What would you like to do? add, remove, or quit? Not k-sensitive: \n").lower()
         print("------------------------------------------")
         if response == "quit":
@@ -128,10 +141,11 @@ def game():
                 print("You quit what a loser")
                 return
 
-        cords = input("Where would you like to {}? (row,col) 1-9, 1-9: \n".format(response))
-        while len(cords) != 3 and not cords[0].isnumeric() and not cords[2].isnumeric() and board[cords[0]][cords[2] != 0]:
-            cords = input("Error, try again, where would you like to {}? (row,col) 1-9, 1-9: \n".format(response))
-            print("-")
+        cords = input("Where would you like to {response}? (row,col) 1-9, 1-9: \n".format(response=response))
+        x = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+        while len(cords) != 3 and cords[0] not in x and cords[2] not in x and board[cords[0]][cords[2] != 0]:
+            cords = input("Error, try again, where would you like to {response}? (row,col) 1-9, 1-9: \n".format(response=response))
+            print("------------------------------------------")
 
         
 
@@ -141,14 +155,15 @@ def game():
             while not num.isnumeric() and int(num) and 9 and int(num) < 1:
                 num = input("Error! Please provide a valid input. What would you like to {}? Has to be a number between 1-9 \n".format(response))
             if add(int(cords[0]), int(cords[2]), int(num)):
-                print("You've successfuly added {} at row {} and col {}.".format(num, cords[0], cords[2]))
+                print("You've successfuly added {num} at row {row} and col {col}.".format(num=num, row=cords[0], col=cords[2]))
                 print("------------------------------------------")
             
         if response == "remove":
             if remove(int(cords[0]), int(cords[2])):
-                print("You've successfuly removed the number at row {} and col {}.".format(cords[0], cords[2]))
+                print("You've successfuly removed the number at row {row} and col {col}.".format(row=cords[0], col=cords[2]))
                 print("------------------------------------------")
 
+        """
         time.sleep(1)
         printBoard(board)
 
