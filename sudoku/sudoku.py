@@ -52,6 +52,10 @@ def printBoard(board):
         print([line2,line3,line4][(r%side==0)+(r%base==0)])
 
 def add(row, col, num):
+    if num > 9 or num < 1:
+        print("Oops! Number has to be between 1-9")
+        return False
+
     prev = board[row-1][col-1]
     if prev == 0:
         board[row-1][col-1] = int(num)
@@ -105,15 +109,17 @@ def game():
     while not isSolved(board):
         response = input("What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit. \n").lower().split()
 
-        while response == []:
-            response = input(input("Invalid input. What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit \n").lower().split())
+        if response != []:
+            print(response[0])
+            if response[0] == "quit":
+                print("You quit!")
+                return 
 
-        while response[0] != "add" and response[0] != "remove" and not response[1].isnumeric() and int(response[1]) > 0 and int(response[1]) < 10 and int(response[3][0]) > 0 and int(response[3][0]) < 10 and int(response[3][2]) > 0 and int(response[3][2]) < 10:
-            response = input("Invalid input. What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit \n").lower().lower().split()
+        while response == [] or len(response) != 4 or len(response[3]) != 3:
+            response = input("Invalid input. What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit \n").lower().split()
 
-        if response[0] == "quit":
-            print("You lose!")
-            return
+        while response[0] != "add" and response[0] != "remove" and not response[1].isnumeric() and int(response[1]) > 0 and int(response[1]) < 10 and int(response[3][0]) > 0 and int(response[3][0]) < 10 and int(response[3][2]) > 0 and int(response[3][2]) < 10 and len(response[1]) != 1 and len(response[3]) != 3:
+            response = input("Invalid input. What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit \n").lower().split()
 
         action = response[0]
         num = response[1]
