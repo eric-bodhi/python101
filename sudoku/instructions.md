@@ -1,7 +1,8 @@
 # Instructions on how to play Sudoku
 
 ## How to start the game
-In order to start the puzzle you are to download the file and to execute the file in your terminal/command line with the command ./sudoku.py
+In order to start the puzzle you are to download the file and unzip it. You then have to make sure you're in the same directory as the sudoku folder. Then type ./sudoku/sudoku.py
+If it doesn't work, I would suggest learning about directories and file paths and making sure the folder is in the same directory as you.
 This will execute the file starting the game!
 
 The puzzle download download is right here: https://drive.google.com/uc?id=1l4zij_da3uSvmZt10Yks-fISYM-tSAj7&export=download
