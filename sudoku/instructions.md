@@ -4,7 +4,7 @@
 In order to start the puzzle you are to download the file and to execute the file in your terminal/command line with the command ./sudoku.py
 This will execute the file starting the game!
 
-The puzzle download download is right here: https://codeload.github.com/Bodhi2011/python101/zip/refs/heads/main
+The puzzle download download is right here: https://drive.google.com/uc?id=1l4zij_da3uSvmZt10Yks-fISYM-tSAj7&export=download
 ## How to actually play the game
 The goal of sudoku is to have all numbers 1-9 in every row, column, and 3x3 square.
 The problem of the game is achieving this without have more than one instance of a number in every row, column, and square. 
