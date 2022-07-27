@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import random
+
+from setuptools import find_packages
 import generator
 import validSudoku
 import time
@@ -77,12 +79,17 @@ def add(row, col, num):
 
 def remove(row, col):
     prev = board[row-1][col-1]
+    if prev == 0:
+        print("No number there why are you removing it!")
+        return False
     if solved_board[row-1][col-1] == prev:
         print("Oops! That was the correct placement, dont remove it!")
         print("------------------------------------------")
+        return False
 
     else:
         board[row-1][col-1] = 0
+
 
     if validSudoku.isValidSudoku(board):
         return True
@@ -91,7 +98,6 @@ def remove(row, col):
         print("The number you removed made the sudoku invalid, *reversing what you've done*")
         time.sleep(1)
         print("Done!")
-        print("You only have {} left!".format())
         print("------------------------------------------")
         return False
 
@@ -102,74 +108,43 @@ def isSolved(board):
     
     return True and validSudoku.isValidSudoku(board)
 
-
-
 def game():
     printBoard(board)
     while not isSolved(board):
-        response = input("What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit. \n").lower().split()
+        response = input("...What would you like to do? R/C/N. Input row, column, number. E.g. 223. Add 2 at row 3 and column 2. Last number should be 0 if you would like to remove, 000 is to quit... \n")
+        notValid = False
 
-        if response != []:
-            print(response[0])
-            if response[0] == "quit":
-                print("You quit!")
-                return 
-
-        while response == [] or len(response) != 4 or len(response[3]) != 3:
-            response = input("Invalid input. What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit \n").lower().split()
-
-        while response[0] != "add" and response[0] != "remove" and not response[1].isnumeric() and int(response[1]) > 0 and int(response[1]) < 10 and int(response[3][0]) > 0 and int(response[3][0]) < 10 and int(response[3][2]) > 0 and int(response[3][2]) < 10 and len(response[1]) != 1 and len(response[3]) != 3:
-            response = input("Invalid input. What would you like to do? ([add/remove] [number] at [row,col]) **ADD SPACES TO SEPERATE INPUTS** Type quit to quit \n").lower().split()
-
-        action = response[0]
-        num = response[1]
-        cords = response[3]
-
-        if action == "add":
-            if add(int(cords[0]), int(cords[2]), int(num)):
-                print("Added {num} at row {row}, col {col} succesfully!".format(num=num, row=cords[0], col=cords[2]))
-
-        else:
-            if remove(int(cords[0]), int(cords[2])):
-                print("Removed {num} at row {row}, col {col} succesfully!".format(num=num, row=cords[0], col=cords[2]))
-
-
-        """
-        response = input("What would you like to do? add, remove, or quit? Not k-sensitive: \n").lower()
-        print("------------------------------------------")
-        if response == "quit":
-            print("You quit! ")
+        if len(response) != 3:
+            if all([response[i].isnumeric() for i in range(3)]):
+                notValid = len(response) != 3 or not response[0].isnumeric() or int(response[0]) > 9 or int(response) < 1 or response[1].isnumeric() or int(response[1]) > 9 or int(response[1]) < 1 or not response[2].isnumeric() or int(response[2]) > 9 or int(response[2]) < 0
+            
+        if response == "000":
+            print("You quit!")
             return
 
-        while response != "add" and response != "remove" and response != "quit":
-            response = input("Invalid input, please make sure you input add, remove or quit, not k-sensitive \n")
-            if response == "quit":
-                print("You quit what a loser")
+
+        while notValid:
+            response = input("Error! What would you like to do? R/C/N. Input row, column, number. E.g. 223. Add 2 at row 3 and column 2. Last number should be 0 if you would like to remove. \n")
+            if len(response) != 3:
+                if all([response[i].isnumeric() for i in range(3)]):
+                    notValid = len(response) != 3 or not response[0].isnumeric() or int(response[0]) > 9 or int(response) < 1 or response[1].isnumeric() or int(response[1]) > 9 or int(response[1]) < 1 or not response[2].isnumeric() or int(response[2]) > 9 or int(response[2]) < 0
+
+            if response == "000":
+                print("You quit!")
                 return
 
-        cords = input("Where would you like to {response}? (row,col) 1-9, 1-9: \n".format(response=response))
-        x = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-        while len(cords) != 3 and cords[0] not in x and cords[2] not in x and board[cords[0]][cords[2] != 0]:
-            cords = input("Error, try again, where would you like to {response}? (row,col) 1-9, 1-9: \n".format(response=response))
-            print("------------------------------------------")
+        row = int(response[0])
+        col = int(response[1])
+        num = int(response[2])
 
-        
+        if num == 0:
+            if remove(row, col):
+                print("Number removed successfully!")
 
+        else:
+            if add(row, col, num):
+                print(str(num) + " added successfully.")
 
-        if response == "add":
-            num = input("What would you like to add? Has to be a number between 1-9 \n")
-            while not num.isnumeric() and int(num) and 9 and int(num) < 1:
-                num = input("Error! Please provide a valid input. What would you like to {}? Has to be a number between 1-9 \n".format(response))
-            if add(int(cords[0]), int(cords[2]), int(num)):
-                print("You've successfuly added {num} at row {row} and col {col}.".format(num=num, row=cords[0], col=cords[2]))
-                print("------------------------------------------")
-            
-        if response == "remove":
-            if remove(int(cords[0]), int(cords[2])):
-                print("You've successfuly removed the number at row {row} and col {col}.".format(row=cords[0], col=cords[2]))
-                print("------------------------------------------")
-
-        """
         time.sleep(1)
         printBoard(board)
 
