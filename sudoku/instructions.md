@@ -1,22 +1,16 @@
 # Instructions on how to play Sudoku
 
-## How to start the game
+## How to Play
 In order to start the puzzle you are to download the file and unzip it. You then have to make sure you're in the same directory as the sudoku folder. Then type ./sudoku/sudoku.py
 If it doesn't work, I would suggest learning about directories and file paths and making sure the folder is in the same directory as you.
 This will execute the file starting the game!
 
-The puzzle download download is right here: https://drive.google.com/uc?id=1l4zij_da3uSvmZt10Yks-fISYM-tSAj7&export=download
-## How to actually play the game
-The goal of sudoku is to have all numbers 1-9 in every row, column, and 3x3 square.
-The problem of the game is achieving this without have more than one instance of a number in every row, column, and square. 
-As in, I could not a have 2 3's in one row. 
-An example of a solved sudoku:
-https://www.7sudoku.com/images/examples/solved_puzzle.png
-The way the puzzle works is (depending on your difficulty) a certain number of squares are taken away. You have to fill those squares accordingly.
-If you want to **add** a number to a square the format is "add [number you want to add] at [row, col]".
-The **same** format with **remove**
-"remove [number you want to remove] at [row,col]"
+- The puzzle zip file is right here: https://drive.google.com/uc?id=1l4zij_da3uSvmZt10Yks-fISYM-tSAj7&export=download
 
-If you add a number to invalidate the sudoku then it will reverse what you've done.
-If you remove a number that was in the correct spot, it will reverse what you've done. 
-Please report any bugs to erixefb@gmail.com
+- In order to add or remove a number you must follow the simple format of **row/column/number**. If I wanted to add two at row two and column two, I'd input 222. So simple! If I'd want to remove a number, the last number should be 0. If I wanted to remove the number at row two column six, I'd input 460. The zero meaning remove! You can quit by type **000**. You'll be given the correct solution if you couldn't solve it.
+
+#### FAQ
+1. If you add a number to invalidate the sudoku then it will reverse what you've done.
+2. If you remove a number that was in the correct spot, it will reverse what you've done. 
+
+**Please report any bugs to erixefb@gmail.com**
