@@ -130,42 +130,6 @@ def game():
         if response == "000":
             print("You quit!")
             return
-        """
-        valid = False
-
-        if len(response) == 3:
-            if all([response[i].isnumeric() for i in range(3)]):
-                valid = len(response) != 3 or not response[0].isnumeric() or int(response[0]) > 9 or int(response) < 1 or response[1].isnumeric() or int(response[1]) > 9 or int(response[1]) < 1 or not response[2].isnumeric() or int(response[2]) > 9 or int(response[2]) < 0
-            
-            else:
-                valid = False
-        
-        else:
-            valid = False
-
-        if response == "000":
-            print("You quit!")
-            return
-
-
-        while not valid:
-            response = input("Error! What would you like to do? R/C/N. Input row, column, number. E.g. 223. Add 2 at row 3 and column 2. Last number should be 0 if you would like to remove. \n")
-            
-            if response == "000":
-                print("You quit!")
-                return
-
-            if len(response) == 3:
-                if all([response[i].isnumeric() for i in range(3)]):
-                    valid = len(response) != 3 or not response[0].isnumeric() or int(response[0]) > 9 or int(response) < 1 or response[1].isnumeric() or int(response[1]) > 9 or int(response[1]) < 1 or not response[2].isnumeric() or int(response[2]) > 9 or int(response[2]) < 0
-                
-                else:
-                    valid = False
-            
-            else:
-                valid = False
-
-        """
 
         row = int(response[0])
         col = int(response[1])
