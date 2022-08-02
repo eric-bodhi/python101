@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import random
+from re import L
 
 from setuptools import find_packages
 import generator
@@ -54,29 +55,24 @@ def printBoard(board):
         print([line2,line3,line4][(r%side==0)+(r%base==0)])
 
 def add(row, col, num):
-    if num > 9 or num < 1:
-        print("Oops! Number has to be between 1-9")
-        return False
-
     prev = board[row-1][col-1]
-    if prev == 0:
-        board[row-1][col-1] = int(num)
-    else:
-        print("Oops! There's already a number there!")
-        print("------------------------------------------")
+    if prev != 0 and solved_board[row-1][col-1] != num:
+        print("Don't change it! It was the correct number already!")
         return False
-    
 
+    board[row-1][col-1] = num
     if validSudoku.isValidSudoku(board):
+        print("Successfully changed " + str(prev) + " to " + str(num) + "!")
         return True
+
     else:
-        print("The number you added made the sudoku invalid, *reversing what you've done*")
+        print("The number you changed has made the sudoku invalid!")
         time.sleep(1)
-        print("Reversed!")
-        print("------------------------------------------")
         board[row-1][col-1] = prev
+        print("Reversed!")
         return False
 
+        e
 def remove(row, col):
     prev = board[row-1][col-1]
     if prev == 0:
@@ -92,6 +88,7 @@ def remove(row, col):
 
 
     if validSudoku.isValidSudoku(board):
+        print("Successfully removed!")
         return True
     else:
         board[row-1][col-1] = prev
@@ -112,7 +109,7 @@ def validResponse(response):
     def validNum(num):
         return int(num) > 0 and int(num) < 10
     
-    if response == "000":
+    if response.lower() == "q":
         return True
 
     if len(response) != 3 or not all([response[i].isnumeric() for i in range(3)]):
@@ -123,11 +120,11 @@ def validResponse(response):
 def game():
     printBoard(board)
     while not isSolved(board):
-        response = input(" ...What would you like to do? R/C/N. Input row, column, number. E.g. 223. Add 2 at row 3 and column 2. Last number should be 0 if you would like to remove, 000 is to quit... \n")
+        response = input(" ...What would you like to do? R/C/N. Input row, column, number. E.g. 223. Add 2 at row 3 and column 2. If there is already a number at your coordinates then it will overide that number placing your input there instead.. Last number should be 0 if you would like to remove, q is to quit... \n")
         while not validResponse(response):
-            response = input("Error! What would you like to do? R/C/N. Input row, column, number. E.g. 223. Add 2 at row 3 and column 2. Last number should be 0 if you would like to remove. \n")
+            response = input("Error! What would you like to do? R/C/N. Input row, column, number. Last number should be 0 if you would like to remove. \n")
 
-        if response == "000":
+        if response.lower() == "q":
             print("You quit!")
             return
 
@@ -136,14 +133,11 @@ def game():
         num = int(response[2])
 
         if num == 0:
-            if remove(row, col):
-                print("Number removed successfully!")
+            remove(row, col)
 
         else:
-            if add(row, col, num):
-                print(str(num) + " added successfully.")
-
-        time.sleep(1)
+            add(row, col, num)
+        
         printBoard(board)
 
 game()
