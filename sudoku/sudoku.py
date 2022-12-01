@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 import random
-from re import L
-
-from setuptools import find_packages
 import generator
 import validSudoku
 import time
@@ -33,6 +30,12 @@ def make_playable(board):
     return board
 
 board =  list(map(list, solved_board))
+
+def make_playable(board):
+    for i in random.sample(range(81), difficulty):
+        board[i//9][i%9] = 0
+    
+    return board
 
 board = make_playable(board)
 
