@@ -47,7 +47,7 @@ class Sudoku:
         for num in range(1, 10):
             if self.validMove(num, row, col):
                 self.board[row][col] = num
-
+                log.debug((board.board[row][col], (row, col)))
                 if self.solve():
                     return True
             self.board[row][col] = 0
@@ -58,7 +58,7 @@ class Sudoku:
 board = Sudoku(generate())
 board.make_playable()
 
-log.debug(board.board)
+#log.debug(board.board)
 
 board.solve()
 log.debug(board.board)
