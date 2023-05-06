@@ -12,7 +12,7 @@ class Sudoku:
         self.board = board
 
     def make_playable(self):
-        for i in sample(range(81), 80):
+        for i in sample(range(81), 60):
             self.board[i//9][i%9] = 0
 
     def validMove(self, val, row, col):
