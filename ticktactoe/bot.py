@@ -1,3 +1,52 @@
+#if you or your opponent has two in a row plan on the remaining square
+#otherwise if there's a move that creates two lines of two in a row play that
+#otherwise if the center square is free play there
+#otherwise if your opponent has played in a corner plan in the opposite corner
+#otherwise if there's an empty corner play there
+#otherwise play any empty square
+'''
+make everything into a grid of 
+    "-" for empty (or 0)
+    "x" for not empty (or 1)
+find a line of 2
+
+if that line is vertical
+    if that line is in the middle
+        look to the left to find another "x"
+            if that "x" is in the middle cell
+                copy the original line of 2 to the left # there is probably a better way to do this
+            otherwise
+                play the middle cell 
+        look to the right to find another "x"
+            if that "x" is in the middle cell
+                copy the original line of 2 to the right
+            otherwise
+                play the middle cell 
+    otherwise
+        look at the middle to find another "x"
+            if that "x" is in the middle cell
+                copy the original line of 2 to the middle
+            otherwise
+                play the middle cell
+otherwise
+    if that line is in the middle
+        look up to find another "x"
+            if that "x" is in the middle cell
+                copy the original line of 2 up
+            otherwise
+                play the middle cell 
+        look down to find another "x"
+            if that "x" is in the middle cell
+                copy the original line of 2 down
+            otherwise
+                play the middle cell 
+    otherwise
+        look at the middle to find another "x"
+            if that "x" is in the middle cell
+                copy the original line of 2 to the middle
+            otherwise
+                play the middle cell'''
+
 #print the board function, utilized each time
 #get() function, basically returns x,y axis
 board = ['-','-','-','-','-','-','-','-','-']
@@ -43,15 +92,13 @@ def isTie():
 turn = True
 printBoard(board)
 while not playerWin("X") and not playerWin("0") and not isTie():
-    if turn:
+    if turn: #player turn
         i = input("Player x's turn, where do you pick?:\n")
         if not i.isnumeric() or int(i) > 9 or int(i) < 1:
             i = input("Try again, invalid input.\n")
         board[int(i) - 1] = "X"
-    if not turn:
-        i = input("Player 0's turn, where do you pick?:\n")
-        if not i.isnumeric() or int(i) > 9 or int(i) < 1:
-            i = input("Try again, invalid input.\n")
+    if not turn: #bot turn
+        
         board[int(i) - 1] = "0"
     printBoard(board)
     turn = changeTurn(turn)
